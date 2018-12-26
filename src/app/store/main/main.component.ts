@@ -14,13 +14,17 @@ export class MainComponent implements OnInit {
   items: any;
   myCost=0;
   constructor(private httpClient: HttpClient) {
+  }
+
+  ngOnInit() {
     this.httpClient.get(this.urlBase +'item/list').subscribe((res)=>{
     this.items=res;
 
   });
-  }
+    this.httpClient.get(this.urlBase +'item/list').subscribe((res)=>{
+      this.items=res;
 
-  ngOnInit() {
+  });
   }
 
   AddItemToCar($event,id: number, name: string, description: string, quantity: number, cost: number, imgUrl: string){
