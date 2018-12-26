@@ -1,8 +1,4 @@
-<mat-spinner *ngIf="cost==0"></mat-spinner>
-<script *ngIf="cost==0">
-  location.reload();
-</script>
-<mat-card class="mycard" *ngIf="cost>0">
+<mat-card class="mycard">
   <mat-card-content fxLayout="row" fxLayoutAlign="center top" fxLayoutGap="10px">
     <span>
     <h2>
@@ -15,7 +11,7 @@
       Total: {{cost}}
     </h2>
     </span>
-    <img class="imgItem" src="../assets/billetera.png" >
+    <img class="imgItem" (load)="getData()" src="../assets/billetera.png" >
   </mat-card-content>
   <mat-card-actions align="right">
     <button mat-raised-button color="primary" (click)="pagar()"><mat-icon>payment</mat-icon>Pagar con Tpaga</button>

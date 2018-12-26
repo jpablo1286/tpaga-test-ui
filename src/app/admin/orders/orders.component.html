@@ -1,3 +1,26 @@
-<p>
-  orders works!
-</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>DnD Store</span>
+    <span class="toolbar-spacer"></span>
+    <button mat-button><mat-icon>account_box</mat-icon>Cerrar sesion</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<section *ngIf="!authenticated" class="signup-form" fxLayout="column" fxLayoutAlign="center center">
+  <mat-card>
+  <mat-card-title>Iniciar Sesion</mat-card-title>
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Usuario" ngModel name="user" required #userInput="ngModel"/>
+      <mat-error *ngIf="userInput.hasError('required')">No puede estar vacio</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="password" matInput placeholder="Contraseña" required ngModel name="pass1" #pwInput="ngModel"/>
+      <mat-error *ngIf="pwInput.hasError('required')">No puede estar vacio</mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary" (click)="authenticate(userInput.value, pwInput.value)">Iniciar Sesion</button>
+  </form>
+</mat-card>
+</section>
+<span *ngIf="authenticated" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" >
+  <app-orderitem (productRefunded)="refund($event)" *ngFor="let order of orders" [id]="order.id" [status]="order.status" [token]="order.token" [cost]="order.cost"></app-orderitem>
+</span>

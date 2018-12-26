@@ -18,31 +18,30 @@ export class OrderComponent implements OnInit {
    }
 
   ngOnInit() {
-
-    this.sub = this.route.params.subscribe(params => {
-    this.oId = params['oId'];
-
-    this.httpClient.get(this.urlBase + 'order/info/'+ this.oId).subscribe((res)=>{
-        this.order=res;
-        this.tpagaUrl = this.order.tpagaPaymentUrl;
-        this.cost = this.order.cost;
-        });
-
-    });
-
-    this.sub = this.route.params.subscribe(params => {
-    this.oId = params['oId'];
-
-    this.httpClient.get(this.urlBase + 'order/info/'+ this.oId).subscribe((res)=>{
-        this.order=res;
-        this.tpagaUrl = this.order.tpagaPaymentUrl;
-        this.cost = this.order.cost;
-        });
-
-    });
-
   }
   pagar(){
     window.location.href=this.tpagaUrl;
+  }
+  getData(){
+    this.sub = this.route.params.subscribe(params => {
+    this.oId = params['oId'];
+
+    this.httpClient.get(this.urlBase + 'order/info/'+ this.oId).subscribe((res)=>{
+        this.order=res;
+        this.tpagaUrl = this.order.tpagaPaymentUrl;
+        this.cost = this.order.cost;
+        });
+
+    });
+    this.sub = this.route.params.subscribe(params => {
+    this.oId = params['oId'];
+
+    this.httpClient.get(this.urlBase + 'order/info/'+ this.oId).subscribe((res)=>{
+        this.order=res;
+        this.tpagaUrl = this.order.tpagaPaymentUrl;
+        this.cost = this.order.cost;
+        });
+
+    });
   }
 }

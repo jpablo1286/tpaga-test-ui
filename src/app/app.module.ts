@@ -15,6 +15,7 @@ import { ShopcaritemComponent } from './store/shopcaritem/shopcaritem.component'
 import { OrderComponent } from './store/order/order.component';
 import { OrderconfirmComponent } from './store/orderconfirm/orderconfirm.component';
 import { OrdersComponent } from './admin/orders/orders.component';
+import { OrderitemComponent } from './admin/orderitem/orderitem.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { OrdersComponent } from './admin/orders/orders.component';
     ShopcaritemComponent,
     OrderComponent,
     OrderconfirmComponent,
-    OrdersComponent
+    OrdersComponent,
+    OrderitemComponent
   ],
   imports: [
     BrowserAnimationsModule,

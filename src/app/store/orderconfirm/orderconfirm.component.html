@@ -1,3 +1,40 @@
-<p>
-  orderconfirm works!
-</p>
+<span *ngIf="confirmed">
+<mat-card>
+  <mat-card-content fxLayout="row" fxLayoutAlign="center top" fxLayoutGap="10px">
+    <span>
+    <h2>
+      Pago confirmado
+    </h2>
+    <h2>
+      Nos comunicaremos en breve para despachar su pedido.
+    </h2>
+    </span>
+    <img class="imgItem" (load)="confirmOrder()" src="../assets/billetera.png" >
+  </mat-card-content>
+  <mat-card-actions align="right">
+    <button mat-raised-button color="primary" (click)="goHome()"><mat-icon>home</mat-icon>Seguir comprando</button>
+  </mat-card-actions>
+</mat-card>
+</span>
+<script *ngIf="!confirmed">
+  location.reload();
+</script>
+<span *ngIf="!confirmed">
+<mat-card class="mycard">
+  <mat-card-content fxLayout="row" fxLayoutAlign="center top" fxLayoutGap="10px">
+    <span>
+    <h2>
+      Se presento un problema al procesar el pago
+    </h2>
+    <h2>
+      No pudimos confirmar tu pago, puedes reintentar tu pago.
+    </h2>
+    </span>
+    <img class="imgItem" (load)="confirmOrder()" src="../assets/billetera.png" >
+  </mat-card-content>
+  <mat-card-actions align="right">
+    <button mat-raised-button color="primary" (click)="pagar()"><mat-icon>payment</mat-icon>Reintentar con Tpaga</button>
+    <button mat-raised-button color="primary" (click)="goHome()"><mat-icon>home</mat-icon>Cerrar</button>
+  </mat-card-actions>
+</mat-card>
+</span>

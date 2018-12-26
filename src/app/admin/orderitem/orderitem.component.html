@@ -1,0 +1,18 @@
+<mat-card class="mycard">
+  <mat-card-header>
+    <mat-card-title>Orden #{{id}}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <b>
+      Estado: {{status}}{{test}}
+    </b>
+    <br/>
+    <b>
+      Total: {{cost}}
+    </b>
+  </mat-card-content>
+  <mat-card-actions *ngIf="status=='delivered'" align="right">
+    <button mat-raised-button color="primary" (click)="refund()">Reversar pago</button>
+  </mat-card-actions>
+</mat-card>
