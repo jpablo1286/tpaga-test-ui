@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" style="margin-top:10px;">
+  <mat-toolbar-row>
+    <span>Mi Carrito</span>
+    <span class="toolbar-spacer"></span>
+    <span>${{totalShopingCar}}</span>
+    <button *ngIf="btnPay==0" (click)="createOrder()" mat-button>Pagar</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Detalle
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+     <span fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <app-shopcaritem (productRemoved)="removeItem($event)" *ngFor="let purcahsedItem of purcahsedItems; index as i" [idx]="i" [quantity]="purcahsedItem.quantity"  [name]="purcahsedItem.name" [imgUrl]="purcahsedItem.imgUrl" [description]="purcahsedItem.description" [cost]="purcahsedItem.cost" ></app-shopcaritem>
+    </span>
+  </mat-expansion-panel>
+
+</mat-accordion>

@@ -1,0 +1,17 @@
+FROM ubuntu:18.04
+RUN apt-get update
+RUN apt-get -y install nodejs
+RUN apt-get -y install npm git
+RUN  git config --global user.email "test@example.com"
+RUN  git config --global user.name "My Name"
+RUN npm install -g @angular/cli@7
+RUN mkdir /app
+WORKDIR /app
+RUN ng new my-project
+WORKDIR /app/my-project/
+RUN npm install --save @angular/material @angular/cdk @angular/animations
+RUN npm install --save hammerjs
+RUN npm install --save @angular/flex-layout
+RUN rm -rf src
+EXPOSE 4200
+CMD ng serve --host 0.0.0.0

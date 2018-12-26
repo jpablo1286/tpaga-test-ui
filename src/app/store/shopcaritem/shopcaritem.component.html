@@ -1,0 +1,19 @@
+<mat-card class="mycard">
+  <mat-card-header>
+    <mat-card-title>{{quantity}} - {{name}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content fxLayout="row" fxLayoutAlign="center top" fxLayoutGap="10px">
+    <span align="left">
+      {{description}}
+    </span>
+    <span fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+      <img class="imgItem" [attr.src]="imgUrl" >
+      <p>
+        <b>Total: ${{cost}}</b>
+      </p>
+    </span>
+  </mat-card-content>
+  <mat-card-actions align="right">
+    <button mat-raised-button (click)="removeFromCar()" color="primary"><mat-icon>delete</mat-icon></button>
+  </mat-card-actions>
+</mat-card>
