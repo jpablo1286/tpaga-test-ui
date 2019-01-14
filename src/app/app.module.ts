@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './store/main/main.component';
@@ -16,6 +17,7 @@ import { OrderComponent } from './store/order/order.component';
 import { OrderconfirmComponent } from './store/orderconfirm/orderconfirm.component';
 import { OrdersComponent } from './admin/orders/orders.component';
 import { OrderitemComponent } from './admin/orderitem/orderitem.component';
+import { BackendService } from './backend.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,11 @@ import { OrderitemComponent } from './admin/orderitem/orderitem.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    BackendService,
+    HttpClient
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { BackendService } from '../../backend.service';
 
 @Component({
   selector: 'app-main',
@@ -8,23 +8,31 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  urlBase="http://192.168.1.172:8000/";
   purcahsedItems=[];
   totalShopingCar=0;
   items: any;
   myCost=0;
-  constructor(private httpClient: HttpClient) {
+  error=false;
+  errorMessage="";
+  //Se implementa el servicio que consulta al backend
+  constructor(private backendService: BackendService) {
   }
 
   ngOnInit() {
-    this.httpClient.get(this.urlBase +'item/list').subscribe((res)=>{
-    this.items=res;
-
-  });
-    this.httpClient.get(this.urlBase +'item/list').subscribe((res)=>{
-      this.items=res;
-
-  });
+  //Se realiza una subscripcion para hacer seguimientos a los errores de backend
+    this.backendService.errorInfo.subscribe(
+      ()=>{
+        this.error = this.backendService.error;
+        this.errorMessage = this.backendService.errorMessage;
+      }
+    );
+  //Se realiza una subscripcion para seguir los cambios en la lista de items
+  this.backendService.itemsUpdated.subscribe(
+    ()=> {
+      this.items=this.backendService.getItems();
+    });
+  this.backendService.getItemList();
+  this.backendService.getItemList();
   }
 
   AddItemToCar($event,id: number, name: string, description: string, quantity: number, cost: number, imgUrl: string){

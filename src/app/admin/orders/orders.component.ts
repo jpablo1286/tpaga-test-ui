@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { BackendService } from '../../backend.service';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -8,52 +8,53 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class OrdersComponent implements OnInit {
   authenticated=false;
-  urlBase="http://192.168.1.172:8000/";
+  urlBase="https://backminiapp.juanrivera.org/";
   token="";
   credentials: any;
   error=false;
+  errorMessage="";
   orders: any;
   httpOptions: any;
-  constructor(private httpClient: HttpClient) { }
+  constructor(private backendService: BackendService) { }
 
   ngOnInit() {
-  }
-  authenticate(user:string, pass:string){
-    this.httpClient.post(this.urlBase + 'api-token-auth',{username:user, password: pass}).subscribe((res)=>{
-        this.credentials=res;
-        this.token = this.credentials.token;
+    this.backendService.errorInfo.subscribe(
+      ()=>{
+        this.error = this.backendService.error;
+        this.errorMessage = this.backendService.errorMessage;
+      }
+    );
+
+    this.backendService.tokenUpdated.subscribe(
+      ()=> {
+        this.token=this.backendService.getToken();
+
         if(this.token != "")
         {
           this.authenticated = true;
-          this.error = false;
           this.listOrders();
         }
         else
         {
           this.authenticated = false;
-          this.error = true;
         }
-        });
+
+      });
+
+      this.backendService.ordersUpdated.subscribe(
+        ()=>{
+          this.orders = this.backendService.getOrders();
+        }
+      );
+  }
+  authenticate(user:string, pass:string){
+    this.backendService.getAuthenticated(user,pass);
   }
 
   listOrders(){
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization':  'Token '+ this.token
-       })
-    };
-    this.httpClient.get(this.urlBase + 'order/list',this.httpOptions).subscribe((res)=>{
-        this.orders=res;
-    });
+    this.backendService.listOrders(this.token);
   }
   refund($event){
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization':  'Token '+ this.token
-       })
-    };
-    this.httpClient.get(this.urlBase + 'order/refund/' + $event.orderId,this.httpOptions).subscribe((res)=>{
-        this.listOrders();
-    });
+    this.backendService.refund($event.orderId,this.token);
   }
 }
